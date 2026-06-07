@@ -61,6 +61,16 @@
 				project{projects.length === 1 ? '' : 's'}
 			</p>
 
+			<form class="sort" aria-label="Sort projects">
+				<label for="project-sort">Sort by</label>
+
+				<select id="project-sort" name="sort">
+					<option value="newest">Newest</option>
+					<option value="oldest">Oldest</option>
+				</select>
+			</form>
+		</header>
+
 		{#if projects.length > 0}
 			{#key selectedTag}
 				<ul class="project-grid" aria-label="Projects">
