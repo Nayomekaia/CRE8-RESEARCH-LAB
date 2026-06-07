@@ -15,6 +15,15 @@
 		return tagSlug ? `/archive?tag=${tagSlug}` : '/archive';
 	}
 
+	function getProjectUrl(project) {
+		if (!project.tags?.slug || !project.slug) {
+			return '/archive';
+		}
+
+		const baseUrl = `/archive/${project.tags.slug}/${project.slug}`;
+
+		return selectedTag ? `${baseUrl}?returnTag=${selectedTag}` : baseUrl;
+	}
 	<aside class="archive-sidebar">
 		<section class="filter-block" aria-labelledby="filter-title">
 			<p class="filter-label">Filter</p>
@@ -42,6 +51,7 @@
 		</section>
 	</aside>
 
+											<a href={getProjectUrl(project)} class="project-link">
 <style>
 	:global(body) {
 		background: #fffaf0;
