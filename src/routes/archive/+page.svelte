@@ -24,6 +24,11 @@
 
 		return selectedTag ? `${baseUrl}?returnTag=${selectedTag}` : baseUrl;
 	}
+
+	function formatDate(date) {
+		return date ? new Date(date).getFullYear() : '';
+	}
+</script>
 	<aside class="archive-sidebar">
 		<section class="filter-block" aria-labelledby="filter-title">
 			<p class="filter-label">Filter</p>
@@ -52,6 +57,10 @@
 	</aside>
 
 											<a href={getProjectUrl(project)} class="project-link">
+
+													{#if project.published_at}
+														<time datetime={project.published_at}>
+															{formatDate(project.published_at)}
 <style>
 	:global(body) {
 		background: #fffaf0;
