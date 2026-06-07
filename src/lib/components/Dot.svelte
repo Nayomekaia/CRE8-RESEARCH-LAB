@@ -80,6 +80,61 @@
 	function getThemeColor(name) {
 		return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 	}
+
+	function getResponsiveSettings() {
+		const { width } = getCanvasSize();
+
+		if (width < 390) {
+			return {
+				dotSize: 0.7,
+				gap: 2.5,
+				pointerRadius: 45,
+				paddingX: 14,
+				paddingY: 18
+			};
+		}
+
+		if (width < 600) {
+			return {
+				dotSize: 0.85,
+				gap: 3,
+				pointerRadius: 55,
+				paddingX: 20,
+				paddingY: 22
+			};
+		}
+
+		if (width < 900) {
+			return {
+				dotSize: 1.05,
+				gap: 4,
+				pointerRadius: 70,
+				paddingX: 34,
+				paddingY: 30
+			};
+		}
+
+		return {
+			dotSize: settings.dotSize,
+			gap: settings.gap,
+			pointerRadius: pointer.radius,
+			paddingX: settings.paddingX,
+			paddingY: settings.paddingY
+		};
+	}
+
+	function getBaseFontSize(width) {
+		if (width < 370) return 42;
+		if (width < 430) return 48;
+		if (width < 600) return 58;
+		if (width < 700) return 72;
+		if (width < 900) return 100;
+		if (width < 1200) return 125;
+		if (width < 1400) return 150;
+
+		return 185;
+	}
+
 	<canvas
 		bind:this={canvas}
 		onpointermove={handlePointerMove}
