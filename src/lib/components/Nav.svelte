@@ -1,5 +1,16 @@
 <script>
+	import { page } from '$app/state';
 	import logo from '$lib/assets/logo.svg';
+
+	const pathname = $derived(page.url.pathname);
+
+	function isActive(path) {
+		if (path === '/') {
+			return pathname === '/';
+		}
+
+		return pathname.startsWith(path);
+	}
 </script>
 
 <nav>
