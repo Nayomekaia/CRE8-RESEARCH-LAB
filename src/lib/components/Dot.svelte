@@ -135,6 +135,60 @@
 		return 185;
 	}
 
+	function getResponsiveFontSize() {
+		const { width, height } = getCanvasSize();
+		const responsive = getResponsiveSettings();
+
+		const maxTextWidth = width - responsive.paddingX * 2;
+		const maxTextHeight = height - responsive.paddingY * 2;
+
+		let fontSize = getBaseFontSize(width);
+
+		context.font = getFont(fontSize);
+
+		let longestLineWidth = getLongestLineWidth();
+		let blockHeight = getTextBlockHeight(fontSize);
+
+		while ((longestLineWidth > maxTextWidth || blockHeight > maxTextHeight) && fontSize > 20) {
+			fontSize -= 2;
+
+			context.font = getFont(fontSize);
+			longestLineWidth = getLongestLineWidth();
+			blockHeight = getTextBlockHeight(fontSize);
+		}
+
+		return fontSize;
+	}
+
+	function getFont(fontSize) {
+		return `${settings.fontWeight} ${fontSize}px ${settings.fontFamily}`;
+	}
+
+	function getLongestLineWidth() {
+		return Math.max(...lines.map((line) => context.measureText(line).width));
+	}
+
+	function getTextBlockHeight(fontSize) {
+		const lineStep = fontSize * settings.lineHeight;
+		return fontSize + (lines.length - 1) * lineStep;
+	}
+
+	function getTextLayout() {
+		const { width, height } = getCanvasSize();
+
+		const fontSize = getResponsiveFontSize();
+		const lineStep = fontSize * settings.lineHeight;
+		const blockHeight = getTextBlockHeight(fontSize);
+		const offsetY = width < 900 ? 0 : -20;
+		const startY = (height - blockHeight) / 2 + fontSize / 2 + offsetY;
+
+		return {
+			fontSize,
+			lineStep,
+			startY
+		};
+	}
+
 	<canvas
 		bind:this={canvas}
 		onpointermove={handlePointerMove}
