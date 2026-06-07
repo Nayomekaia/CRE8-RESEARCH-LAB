@@ -97,3 +97,31 @@
 		max-width: none;
 	}
 
+	@media (min-width: 700px) {
+		nav {
+			padding: 1.5rem 2rem;
+		}
+
+		nav ul {
+			gap: 2rem;
+		}
+
+		img {
+			width: 2rem;
+		}
+	}
+
+	@media (min-width: 1000px) {
+		nav {
+			padding: 1.75rem 3rem;
+		}
+
+		nav ul {
+			gap: 5rem;
+		}
+
+		img {
+			width: 2.4rem;
+		}
+	}
+</style>
