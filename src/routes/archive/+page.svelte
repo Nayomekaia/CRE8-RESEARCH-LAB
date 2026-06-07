@@ -11,6 +11,10 @@
 		projects.filter((_, index) => index % 3 === 2)
 	]);
 
+	function getFilterUrl(tagSlug = '') {
+		return tagSlug ? `/archive?tag=${tagSlug}` : '/archive';
+	}
+
 <style>
 	:global(body) {
 		background: #fffaf0;
