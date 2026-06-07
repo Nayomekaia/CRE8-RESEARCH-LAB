@@ -125,4 +125,27 @@
 
 	--transition-fast: 0.2s ease;
 	--transition-medium: 0.35s ease;
+    /* Base neutrals */
+    --color-neutral-100: #fffaf0;
+    --color-neutral-200: #e8e0d2;
+    --color-neutral-700: rgba(0, 0, 0, 0.55);
+    --color-neutral-800: rgba(0, 0, 0, 0.78);
+    --color-neutral-900: #151515;
+
+    /* Surface */
+    --color-background: var(--color-neutral-100);
+    --color-surface: var(--color-neutral-200);
+
+    /* Text */
+    --color-text: var(--color-neutral-900);
+    --color-text-body: var(--color-neutral-800);
+    --color-text-muted: var(--color-neutral-700);
+    --color-text-subtle: rgba(0, 0, 0, 0.45);
+
+    /* Border */
+    --color-border: rgba(0, 0, 0, 0.1);
+    --color-border-strong: rgba(0, 0, 0, 0.16);
+
+    /* Accent */
+    --color-accent: var(--color-neutral-900);
 }
