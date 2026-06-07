@@ -55,10 +55,32 @@
 			</section>
 		</section>
 	</aside>
+
+	<section class="detail-scroll" aria-labelledby="project-title">
+		<article class="project-detail">
+			<header class="project-header">
+				<h1 id="project-title">{project.title}</h1>
+			</header>
+
 			{#if projectImage}
 				<figure class="project-media">
 					<img src={projectImage} alt={project.title} loading="eager" />
 				</figure>
+			{/if}
+
+			{#if project.intro}
+				<p class="intro">{project.intro}</p>
+			{/if}
+
+			{#if project.project_url}
+				<a
+					href={project.project_url}
+					target="_blank"
+					rel="noreferrer noopener"
+					class="project-button"
+				>
+					View project
+				</a>
 			{/if}
 
 			{#if project.content}
@@ -68,6 +90,11 @@
 					{/each}
 				</section>
 			{/if}
+			{/if}
+		</article>
+	</section>
+</main>
+
 <style>
 	.detail-page {
 		display: grid;
