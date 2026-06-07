@@ -189,6 +189,57 @@
 		};
 	}
 
+	function createTextParticles() {
+		particles = [];
+
+		const { width, height } = getCanvasSize();
+		const responsive = getResponsiveSettings();
+		const backgroundColor = getThemeColor('--color-background');
+		const layout = getTextLayout();
+
+		pointer.radius = responsive.pointerRadius;
+
+		context.clearRect(0, 0, width, height);
+		context.fillStyle = backgroundColor;
+		context.fillRect(0, 0, width, height);
+
+		drawText(layout);
+
+		const imageData = context.getImageData(0, 0, width, height);
+		const pixels = imageData.data;
+
+		for (let y = 0; y < height; y += responsive.gap) {
+			for (let x = 0; x < width; x += responsive.gap) {
+				const pixelIndex = (y * width + x) * 4;
+
+				if (isTextPixel(pixels, pixelIndex)) {
+					particles.push({
+						x,
+						y,
+						baseX: x,
+						baseY: y,
+						size: responsive.dotSize,
+						randomSpread: Math.random() * 6 + 4
+					});
+				}
+			}
+		}
+
+		context.clearRect(0, 0, width, height);
+	}
+
+	function drawText(layout) {
+		const { width } = getCanvasSize();
+
+		context.fillStyle = '#000';
+		context.textAlign = 'center';
+		context.textBaseline = 'middle';
+		context.font = getFont(layout.fontSize);
+
+		lines.forEach((line, index) => {
+			context.fillText(line, width / 2, layout.startY + index * layout.lineStep);
+		});
+	}
 	<canvas
 		bind:this={canvas}
 		onpointermove={handlePointerMove}
