@@ -1,3 +1,9 @@
+<script>
+	let { data } = $props();
+
+	const selectedTag = $derived(data.selectedTag ?? '');
+	const projects = $derived(data.projects ?? []);
+	const tags = $derived(data.tags ?? []);
 <style>
 	:global(body) {
 		background: #fffaf0;
