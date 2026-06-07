@@ -56,11 +56,50 @@
 		</section>
 	</aside>
 
+		{#if projects.length > 0}
+			{#key selectedTag}
+				<ul class="project-grid" aria-label="Projects">
+					{#each projectColumns as columnProjects, columnIndex}
+						<li class="project-column" class:project-column-reverse={columnIndex !== 1}>
+							<ul class="project-list">
+								{#each columnProjects as project, index}
+									<li class="project-item" style={`--delay: ${index * 140}ms`}>
+										<article class="project-card">
 											<a href={getProjectUrl(project)} class="project-link">
+												{#if project.preview_image}
+													<figure>
+														<img src={project.preview_image} alt={project.title} />
+													</figure>
+												{/if}
+
+												<footer class="project-meta">
+													{#if project.tags}
+														<p>{project.tags.name}</p>
+													{/if}
 
 													{#if project.published_at}
 														<time datetime={project.published_at}>
 															{formatDate(project.published_at)}
+														</time>
+													{/if}
+												</footer>
+
+												<h2>{project.title}</h2>
+											</a>
+										</article>
+									</li>
+								{/each}
+							</ul>
+						</li>
+					{/each}
+				</ul>
+			{/key}
+		{:else}
+			<p class="empty-message">No projects found.</p>
+		{/if}
+	</section>
+</main>
+
 <style>
 	:global(body) {
 		background: #fffaf0;
