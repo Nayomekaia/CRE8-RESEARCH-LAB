@@ -56,6 +56,11 @@
 		</section>
 	</aside>
 
+			<p>
+				{projects.length}
+				project{projects.length === 1 ? '' : 's'}
+			</p>
+
 		{#if projects.length > 0}
 			{#key selectedTag}
 				<ul class="project-grid" aria-label="Projects">
