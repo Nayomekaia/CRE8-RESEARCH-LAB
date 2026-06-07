@@ -2,7 +2,13 @@
 	let { data } = $props();
 
 	const project = $derived(data.project);
+	const returnTag = $derived(data.returnTag ?? '');
+	const backUrl = $derived(returnTag ? `/archive?tag=${returnTag}` : '/archive');
 </script>
+			<a href={backUrl} class="back-link">
+				<span class="back-arrow" aria-hidden="true">←</span>
+				<span>Back to archive</span>
+			</a>
 <style>
 	.detail-page {
 		display: grid;
