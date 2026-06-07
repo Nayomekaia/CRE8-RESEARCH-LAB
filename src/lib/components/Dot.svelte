@@ -299,6 +299,56 @@
 		context.fill();
 	}
 
+	function drawLogoInStudiosO() {
+		if (!logoImage) return;
+
+		const { width } = getCanvasSize();
+		const layout = getTextLayout();
+
+		context.font = getFont(layout.fontSize);
+		context.textAlign = 'center';
+		context.textBaseline = 'middle';
+
+		const fullLineWidth = context.measureText(lines[0]).width;
+		const lineStartX = width / 2 - fullLineWidth / 2;
+
+		const beforeOWidth = context.measureText('CRE8 STUDI').width;
+		const oWidth = context.measureText('O').width;
+
+		const { logoSize, logoOffsetY } = getLogoSettings(width, layout.fontSize);
+
+		const oCenterX = lineStartX + beforeOWidth + oWidth / 2;
+		const oCenterY = layout.startY + logoOffsetY;
+
+		context.drawImage(
+			logoImage,
+			oCenterX - logoSize / 2,
+			oCenterY - logoSize / 2,
+			logoSize,
+			logoSize
+		);
+	}
+
+	function getLogoSettings(width, fontSize) {
+		if (width < 430) {
+			return {
+				logoSize: fontSize * 0.26,
+				logoOffsetY: -3
+			};
+		}
+
+		if (width < 900) {
+			return {
+				logoSize: fontSize * 0.28,
+				logoOffsetY: -5
+			};
+		}
+
+		return {
+			logoSize: fontSize * 0.2,
+			logoOffsetY: -9
+		};
+	}
 	<canvas
 		bind:this={canvas}
 		onpointermove={handlePointerMove}
