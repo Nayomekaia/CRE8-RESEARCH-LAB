@@ -240,6 +240,65 @@
 			context.fillText(line, width / 2, layout.startY + index * layout.lineStep);
 		});
 	}
+
+	function isTextPixel(pixels, index) {
+		const red = pixels[index];
+		const green = pixels[index + 1];
+		const blue = pixels[index + 2];
+		const alpha = pixels[index + 3];
+
+		return alpha > 100 && red < 80 && green < 80 && blue < 80;
+	}
+
+	function animate() {
+		const { width, height } = getCanvasSize();
+		const backgroundColor = getThemeColor('--color-background');
+		const textColor = getThemeColor('--color-text');
+
+		context.clearRect(0, 0, width, height);
+		context.fillStyle = backgroundColor;
+		context.fillRect(0, 0, width, height);
+
+		particles.forEach((particle) => {
+			updateParticlePosition(particle);
+			drawParticle(particle, textColor);
+		});
+
+		drawLogoInStudiosO();
+
+		animationFrame = requestAnimationFrame(animate);
+	}
+
+	function updateParticlePosition(particle) {
+		let targetX = particle.baseX;
+		let targetY = particle.baseY;
+
+		if (pointer.x !== null && pointer.y !== null) {
+			const distanceX = particle.baseX - pointer.x;
+			const distanceY = particle.baseY - pointer.y;
+			const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+			if (distance < pointer.radius) {
+				const force = (pointer.radius - distance) / pointer.radius;
+				const angle = Math.atan2(distanceY, distanceX);
+				const spread = force * particle.randomSpread * settings.spreadStrength;
+
+				targetX = particle.baseX + Math.cos(angle) * spread;
+				targetY = particle.baseY + Math.sin(angle) * spread;
+			}
+		}
+
+		particle.x += (targetX - particle.x) * settings.returnSpeed;
+		particle.y += (targetY - particle.y) * settings.returnSpeed;
+	}
+
+	function drawParticle(particle, color) {
+		context.beginPath();
+		context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+		context.fillStyle = color;
+		context.fill();
+	}
+
 	<canvas
 		bind:this={canvas}
 		onpointermove={handlePointerMove}
