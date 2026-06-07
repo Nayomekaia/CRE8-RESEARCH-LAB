@@ -90,6 +90,13 @@
 					{/each}
 				</section>
 			{/if}
+
+			{#if project.video_url}
+				<figure class="project-video">
+					<video src={project.video_url} controls playsinline>
+						<track kind="captions" src="path/to/captions.vtt" srclang="en" label="English">
+					</video>
+				</figure>
 			{/if}
 		</article>
 	</section>
