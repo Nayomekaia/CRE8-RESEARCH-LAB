@@ -14,6 +14,16 @@
 		return new Date(date).getFullYear();
 	}
 
+	function splitContent(content) {
+		if (!content) {
+			return [];
+		}
+
+		return content
+			.split('\n\n')
+			.map((paragraph) => paragraph.trim())
+			.filter(Boolean);
+	}
 </script>
 			<a href={backUrl} class="back-link">
 				<span class="back-arrow" aria-hidden="true">←</span>
@@ -28,6 +38,14 @@
 				<figure class="project-media">
 					<img src={projectImage} alt={project.title} loading="eager" />
 				</figure>
+			{/if}
+
+			{#if project.content}
+				<section class="content" aria-label="Project description">
+					{#each splitContent(project.content) as paragraph}
+						<p>{paragraph}</p>
+					{/each}
+				</section>
 			{/if}
 <style>
 	.detail-page {
