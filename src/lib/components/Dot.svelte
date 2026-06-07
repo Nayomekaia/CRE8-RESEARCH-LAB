@@ -374,4 +374,58 @@
 </section>
 
 <style>
+	.dotted-word-section {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: calc(100svh - 140px);
+		margin-top: 0;
+		overflow: hidden;
+		background: var(--color-background);
+	}
+
+	canvas {
+		display: block;
+		width: 100%;
+		height: 100%;
+		background: var(--color-background);
+	}
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	@media (min-width: 901px) {
+		.dotted-word-section {
+			height: clamp(360px, 48vw, 520px);
+			margin-top: 100px;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.dotted-word-section {
+			height: calc(100svh - 125px);
+		}
+	}
+
+	@media (max-width: 600px) {
+		.dotted-word-section {
+			height: calc(100svh - 115px);
+		}
+	}
+
+	@media (max-width: 390px) {
+		.dotted-word-section {
+			height: calc(100svh - 105px);
+		}
+	}
 </style>
