@@ -1,3 +1,8 @@
+<script>
+	let { data } = $props();
+
+	const project = $derived(data.project);
+</script>
 <style>
 	.detail-page {
 		display: grid;
