@@ -15,6 +15,33 @@
 		return tagSlug ? `/archive?tag=${tagSlug}` : '/archive';
 	}
 
+	<aside class="archive-sidebar">
+		<section class="filter-block" aria-labelledby="filter-title">
+			<p class="filter-label">Filter</p>
+			<h2 id="filter-title">Category</h2>
+
+			<nav class="filter-nav" aria-label="Project categories">
+				<a
+					href="/archive"
+					class:active={selectedTag === ''}
+					aria-current={selectedTag === '' ? 'page' : undefined}
+				>
+					View all
+				</a>
+
+				{#each tags as tag}
+					<a
+						href={getFilterUrl(tag.slug)}
+						class:active={selectedTag === tag.slug}
+						aria-current={selectedTag === tag.slug ? 'page' : undefined}
+					>
+						{tag.name}
+					</a>
+				{/each}
+			</nav>
+		</section>
+	</aside>
+
 <style>
 	:global(body) {
 		background: #fffaf0;
