@@ -29,6 +29,8 @@
 		return date ? new Date(date).getFullYear() : '';
 	}
 </script>
+
+<main class="archive-page">
 	<aside class="archive-sidebar">
 		<section class="filter-block" aria-labelledby="filter-title">
 			<p class="filter-label">Filter</p>
@@ -55,6 +57,10 @@
 			</nav>
 		</section>
 	</aside>
+
+	<section class="archive-content" aria-labelledby="archive-title">
+		<header class="archive-header">
+			<h1 id="archive-title" class="visually-hidden">Project archive</h1>
 
 			<p>
 				{projects.length}
