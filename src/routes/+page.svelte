@@ -1,6 +1,7 @@
 <script>
-    import Dot from '$lib/components/dot.svelte';
+    import Dot from '$lib/components/Dot.svelte';
 </script>
 
-
+<main>
     <Dot />
+</main>
