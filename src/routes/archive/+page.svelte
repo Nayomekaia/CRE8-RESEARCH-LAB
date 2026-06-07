@@ -4,6 +4,13 @@
 	const selectedTag = $derived(data.selectedTag ?? '');
 	const projects = $derived(data.projects ?? []);
 	const tags = $derived(data.tags ?? []);
+
+	const projectColumns = $derived([
+		projects.filter((_, index) => index % 3 === 0),
+		projects.filter((_, index) => index % 3 === 1),
+		projects.filter((_, index) => index % 3 === 2)
+	]);
+
 <style>
 	:global(body) {
 		background: #fffaf0;
