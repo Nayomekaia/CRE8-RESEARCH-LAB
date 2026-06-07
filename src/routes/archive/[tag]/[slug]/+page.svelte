@@ -33,15 +33,28 @@
 		content={project.intro ?? `${project.title} project from CRE8 Studios Research Lab.`}
 	/>
 </svelte:head>
+
+<main class="detail-page">
+	<aside class="detail-sidebar" aria-label="Project information">
+		<section class="sidebar-inner">
 			<a href={backUrl} class="back-link">
 				<span class="back-arrow" aria-hidden="true">←</span>
 				<span>Back to archive</span>
 			</a>
+
+			<section class="project-info" aria-label="Project details">
+				{#if project.tags}
+					<p>{project.tags.name}</p>
+				{/if}
+
 				{#if project.published_at}
 					<time datetime={project.published_at}>
 						{getProjectYear(project.published_at)}
 					</time>
 				{/if}
+			</section>
+		</section>
+	</aside>
 			{#if projectImage}
 				<figure class="project-media">
 					<img src={projectImage} alt={project.title} loading="eager" />
