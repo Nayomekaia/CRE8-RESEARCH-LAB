@@ -349,11 +349,29 @@
 			logoOffsetY: -9
 		};
 	}
+
+	function handlePointerMove(event) {
+		const rect = canvas.getBoundingClientRect();
+
+		pointer.x = event.clientX - rect.left;
+		pointer.y = event.clientY - rect.top;
+	}
+
+	function handlePointerLeave() {
+		pointer.x = null;
+		pointer.y = null;
+	}
+</script>
+
+<section class="dotted-word-section" aria-labelledby="dotted-word-title">
+	<h1 id="dotted-word-title" class="visually-hidden">CRE8 Studios Research Lab</h1>
+
 	<canvas
 		bind:this={canvas}
 		onpointermove={handlePointerMove}
 		onpointerleave={handlePointerLeave}
 	></canvas>
 </section>
+
 <style>
 </style>
