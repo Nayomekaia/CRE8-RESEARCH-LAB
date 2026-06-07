@@ -4,11 +4,17 @@
 	const project = $derived(data.project);
 	const returnTag = $derived(data.returnTag ?? '');
 	const backUrl = $derived(returnTag ? `/archive?tag=${returnTag}` : '/archive');
+	const projectImage = $derived(project.main_image ?? project.preview_image);
 </script>
 			<a href={backUrl} class="back-link">
 				<span class="back-arrow" aria-hidden="true">←</span>
 				<span>Back to archive</span>
 			</a>
+			{#if projectImage}
+				<figure class="project-media">
+					<img src={projectImage} alt={project.title} loading="eager" />
+				</figure>
+			{/if}
 <style>
 	.detail-page {
 		display: grid;
