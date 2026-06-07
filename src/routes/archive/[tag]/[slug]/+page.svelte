@@ -25,6 +25,14 @@
 			.filter(Boolean);
 	}
 </script>
+
+<svelte:head>
+	<title>{project.title} | CRE8 Studios Research Lab</title>
+	<meta
+		name="description"
+		content={project.intro ?? `${project.title} project from CRE8 Studios Research Lab.`}
+	/>
+</svelte:head>
 			<a href={backUrl} class="back-link">
 				<span class="back-arrow" aria-hidden="true">←</span>
 				<span>Back to archive</span>
