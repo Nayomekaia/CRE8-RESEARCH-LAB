@@ -1,3 +1,12 @@
+		@supports (animation-timeline: scroll()) {
+			.project-column-reverse {
+				transform: translateY(calc(-100% + 100vh));
+				animation: reverse-scroll linear forwards;
+				animation-timeline: --archive-scroll;
+			}
+		}
+	}
+
 	@media (min-width: 700px) {
 		.archive-page {
 			grid-template-columns: 17rem 1fr;
