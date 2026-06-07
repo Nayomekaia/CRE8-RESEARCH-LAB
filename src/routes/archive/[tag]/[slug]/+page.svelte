@@ -5,11 +5,25 @@
 	const returnTag = $derived(data.returnTag ?? '');
 	const backUrl = $derived(returnTag ? `/archive?tag=${returnTag}` : '/archive');
 	const projectImage = $derived(project.main_image ?? project.preview_image);
+
+	function getProjectYear(date) {
+		if (!date) {
+			return '';
+		}
+
+		return new Date(date).getFullYear();
+	}
+
 </script>
 			<a href={backUrl} class="back-link">
 				<span class="back-arrow" aria-hidden="true">←</span>
 				<span>Back to archive</span>
 			</a>
+				{#if project.published_at}
+					<time datetime={project.published_at}>
+						{getProjectYear(project.published_at)}
+					</time>
+				{/if}
 			{#if projectImage}
 				<figure class="project-media">
 					<img src={projectImage} alt={project.title} loading="eager" />
