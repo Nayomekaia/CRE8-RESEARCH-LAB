@@ -1,3 +1,33 @@
+	@container (min-width: 34rem) {
+		.project-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 1.5rem;
+		}
+	}
+
+	@container (min-width: 62rem) {
+		.project-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 1.7rem;
+			overflow: hidden;
+		}
+
+		.project-column {
+			display: flex;
+			flex-direction: column;
+			gap: 1.7rem;
+		}
+
+		.project-list {
+			display: flex;
+			flex-direction: column;
+			gap: 1.7rem;
+		}
+
+		.project-column-reverse .project-list {
+			flex-direction: column-reverse;
+		}
+
 		@supports (animation-timeline: scroll()) {
 			.project-column-reverse {
 				transform: translateY(calc(-100% + 100vh));
