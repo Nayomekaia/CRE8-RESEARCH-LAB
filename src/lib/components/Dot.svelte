@@ -50,6 +50,36 @@
 			animate();
 		};
 	}
+
+	function handleResize() {
+		resizeCanvas();
+		createTextParticles();
+	}
+
+	function resizeCanvas() {
+		const parent = canvas.parentElement;
+		const rect = parent.getBoundingClientRect();
+		const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+
+		canvas.width = Math.floor(rect.width * pixelRatio);
+		canvas.height = Math.floor(rect.height * pixelRatio);
+
+		canvas.style.width = `${rect.width}px`;
+		canvas.style.height = `${rect.height}px`;
+
+		context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+	}
+
+	function getCanvasSize() {
+		return {
+			width: canvas.clientWidth,
+			height: canvas.clientHeight
+		};
+	}
+
+	function getThemeColor(name) {
+		return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+	}
 	<canvas
 		bind:this={canvas}
 		onpointermove={handlePointerMove}
