@@ -325,7 +325,18 @@
 		particle.y += (targetY - particle.y) * settings.returnSpeed;
 	}
 
+		const rect = canvas.getBoundingClientRect();
+
+		mouse.x = event.clientX - rect.left;
+		mouse.y = event.clientY - rect.top;
+	}
+
+	function handlePointerLeave() {
+		mouse.x = null;
+		mouse.y = null;
+	}
 </script>
+
 <section class="dotted-word-section">
 </section>
 <style>
