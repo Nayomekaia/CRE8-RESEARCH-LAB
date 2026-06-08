@@ -195,6 +195,15 @@
 		return fontSize;
 	}
 
+	function getLongestLineWidth() {
+		return Math.max(...lines.map((line) => ctx.measureText(line).width));
+	}
+
+	function getTextBlockHeight(fontSize) {
+		const lineStep = fontSize * settings.lineHeight;
+		return fontSize + (lines.length - 1) * lineStep;
+	}
+
 </script>
 <section class="dotted-word-section">
 </section>
