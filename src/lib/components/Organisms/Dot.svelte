@@ -86,6 +86,9 @@
 		}
 	];
 
+	onMount(() => {
+		ctx = canvas.getContext('2d');
+
 </script>
 <section class="dotted-word-section">
 </section>
