@@ -415,4 +415,28 @@
 		background: var(--color-background);
 	}
 
+	@media (min-width: 480px) {
+		.dotted-word-section {
+			height: calc(100svh - 115px);
+		}
+	}
+
+	@media (min-width: 768px) {
+		.dotted-word-section {
+			height: calc(100svh - 125px);
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.dotted-word-section {
+			height: clamp(360px, 48vw, 520px);
+			margin-top: 100px;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		canvas {
+			pointer-events: none;
+		}
+	}
 </style>
