@@ -302,6 +302,13 @@
 		drawLogoInStudiosO();
 	}
 
+	function updateParticle(particle) {
+		let targetX = particle.baseX;
+		let targetY = particle.baseY;
+		particle.x += (targetX - particle.x) * settings.returnSpeed;
+		particle.y += (targetY - particle.y) * settings.returnSpeed;
+	}
+
 </script>
 <section class="dotted-word-section">
 </section>
