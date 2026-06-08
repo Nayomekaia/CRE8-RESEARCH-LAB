@@ -109,6 +109,13 @@
 		window.addEventListener('resize', handleResize);
 		motionQuery.addEventListener('change', handleMotionPreferenceChange);
 
+		return () => {
+			window.removeEventListener('resize', handleResize);
+			motionQuery.removeEventListener('change', handleMotionPreferenceChange);
+			cancelAnimationFrame(animationFrame);
+		};
+	});
+
 </script>
 <section class="dotted-word-section">
 </section>
