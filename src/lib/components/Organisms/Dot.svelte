@@ -325,6 +325,13 @@
 		particle.y += (targetY - particle.y) * settings.returnSpeed;
 	}
 
+	function drawParticle(particle) {
+		ctx.beginPath();
+		ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+		ctx.fillStyle = settings.dotColor;
+		ctx.fill();
+	}
+
 		const firstLine = lines[0];
 		const fullLineWidth = ctx.measureText(firstLine).width;
 		const lineStartX = width / 2 - fullLineWidth / 2;
