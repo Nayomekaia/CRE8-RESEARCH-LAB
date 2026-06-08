@@ -325,6 +325,16 @@
 		particle.y += (targetY - particle.y) * settings.returnSpeed;
 	}
 
+		const firstLine = lines[0];
+		const fullLineWidth = ctx.measureText(firstLine).width;
+		const lineStartX = width / 2 - fullLineWidth / 2;
+
+		const beforeOWidth = ctx.measureText('CRE8 STUDI').width;
+		const oWidth = ctx.measureText('O').width;
+
+		const logoSize = layout.fontSize * responsive.logoScale;
+		const oCenterX = lineStartX + beforeOWidth + oWidth / 2;
+		const oCenterY = layout.startY + responsive.logoOffsetY;
 		const rect = canvas.getBoundingClientRect();
 
 		mouse.x = event.clientX - rect.left;
