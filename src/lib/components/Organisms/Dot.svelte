@@ -289,6 +289,19 @@
 		animationFrame = requestAnimationFrame(animate);
 	}
 
+	function drawStaticFrame() {
+		clearCanvas();
+		drawBackground();
+
+		for (const particle of particles) {
+			particle.x = particle.baseX;
+			particle.y = particle.baseY;
+			drawParticle(particle);
+		}
+
+		drawLogoInStudiosO();
+	}
+
 </script>
 <section class="dotted-word-section">
 </section>
