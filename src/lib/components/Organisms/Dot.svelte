@@ -305,6 +305,22 @@
 	function updateParticle(particle) {
 		let targetX = particle.baseX;
 		let targetY = particle.baseY;
+
+		if (mouse.x !== null && mouse.y !== null) {
+			const dx = particle.baseX - mouse.x;
+			const dy = particle.baseY - mouse.y;
+			const distance = Math.sqrt(dx * dx + dy * dy);
+
+			if (distance < mouse.radius) {
+				const force = (mouse.radius - distance) / mouse.radius;
+				const angle = Math.atan2(dy, dx);
+				const spread = force * particle.randomSpread * settings.spreadStrength;
+
+				targetX = particle.baseX + Math.cos(angle) * spread;
+				targetY = particle.baseY + Math.sin(angle) * spread;
+			}
+		}
+
 		particle.x += (targetX - particle.x) * settings.returnSpeed;
 		particle.y += (targetY - particle.y) * settings.returnSpeed;
 	}
