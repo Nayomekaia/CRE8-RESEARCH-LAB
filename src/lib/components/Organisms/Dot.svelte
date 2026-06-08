@@ -94,6 +94,18 @@
 
 		logoImage = new Image();
 		logoImage.src = logoSvg;
+
+		logoImage.onload = () => {
+			resizeCanvas();
+			createTextParticles();
+
+			if (prefersReducedMotion) {
+				drawStaticFrame();
+			} else {
+				animate();
+			}
+		};
+
 </script>
 <section class="dotted-word-section">
 </section>
