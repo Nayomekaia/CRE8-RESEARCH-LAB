@@ -248,6 +248,30 @@
 		const imageData = ctx.getImageData(0, 0, width, height);
 		const pixels = imageData.data;
 
+		for (let y = 0; y < height; y += responsive.gap) {
+			for (let x = 0; x < width; x += responsive.gap) {
+				const pixelIndex = (y * width + x) * 4;
+
+				const red = pixels[pixelIndex];
+				const green = pixels[pixelIndex + 1];
+				const blue = pixels[pixelIndex + 2];
+				const alpha = pixels[pixelIndex + 3];
+
+				const isTextPixel = alpha > 100 && red < 80 && green < 80 && blue < 80;
+
+				if (isTextPixel) {
+					particles.push({
+						x,
+						y,
+						baseX: x,
+						baseY: y,
+						size: responsive.dotSize,
+						randomSpread: Math.random() * 6 + 4
+					});
+				}
+			}
+		}
+
 </script>
 <section class="dotted-word-section">
 </section>
