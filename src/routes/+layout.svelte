@@ -1,6 +1,6 @@
 <script>
 	import { onNavigate } from '$app/navigation';
-	import Nav from '$lib/components/Nav.svelte';
+	import Nav from '$lib/components/Organisms/Nav.svelte';
 
 	let { children } = $props();
 
@@ -62,9 +62,11 @@
 	.page {
 		display: flex;
 		flex-direction: column;
+		min-height: 100dvh;
 		height: 100dvh;
 		overflow: hidden;
 		background: var(--color-background);
+		color: var(--color-text);
 	}
 
 	.site-header {
@@ -80,6 +82,7 @@
 		text-transform: uppercase;
 		font-size: var(--font-size-lg);
 		letter-spacing: var(--letter-spacing-sm);
+		box-sizing: border-box;
 	}
 
 	.site-footer nav {
@@ -91,6 +94,8 @@
 		grid-template-columns: 1fr;
 		gap: 0.65rem;
 		width: 100%;
+		margin: 0;
+		padding: 0;
 		list-style: none;
 	}
 
