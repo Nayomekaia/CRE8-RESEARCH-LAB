@@ -335,6 +335,16 @@
 		const logoSize = layout.fontSize * responsive.logoScale;
 		const oCenterX = lineStartX + beforeOWidth + oWidth / 2;
 		const oCenterY = layout.startY + responsive.logoOffsetY;
+
+		ctx.drawImage(
+			logoImage,
+			oCenterX - logoSize / 2,
+			oCenterY - logoSize / 2,
+			logoSize,
+			logoSize
+		);
+	}
+
 		const rect = canvas.getBoundingClientRect();
 
 		mouse.x = event.clientX - rect.left;
