@@ -168,6 +168,33 @@
 		ctx.font = `${settings.fontWeight} ${fontSize}px ${settings.fontFamily}`;
 	}
 
+	function getResponsiveFontSize() {
+		const width = canvas.width;
+		const height = canvas.height;
+		const responsive = getResponsiveSettings();
+
+		const maxTextWidth = width - responsive.paddingX * 2;
+		const maxTextHeight = height - responsive.paddingY * 2;
+
+		let fontSize = responsive.fontSize;
+
+		setTextFont(fontSize);
+
+		let longestLineWidth = getLongestLineWidth();
+		let blockHeight = getTextBlockHeight(fontSize);
+
+		while ((longestLineWidth > maxTextWidth || blockHeight > maxTextHeight) && fontSize > 20) {
+			fontSize -= 2;
+
+			setTextFont(fontSize);
+
+			longestLineWidth = getLongestLineWidth();
+			blockHeight = getTextBlockHeight(fontSize);
+		}
+
+		return fontSize;
+	}
+
 </script>
 <section class="dotted-word-section">
 </section>
