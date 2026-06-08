@@ -136,6 +136,16 @@
 		}
 	}
 
+	function resizeCanvas() {
+		const { width, height } = canvas.parentElement.getBoundingClientRect();
+
+		canvas.width = Math.floor(width);
+		canvas.height = Math.floor(height);
+
+		canvas.style.width = `${width}px`;
+		canvas.style.height = `${height}px`;
+	}
+
 </script>
 <section class="dotted-word-section">
 </section>
