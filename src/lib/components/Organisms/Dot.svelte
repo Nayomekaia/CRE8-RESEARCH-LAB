@@ -245,6 +245,9 @@
 			ctx.fillText(line, width / 2, layout.startY + index * layout.lineStep);
 		});
 
+		const imageData = ctx.getImageData(0, 0, width, height);
+		const pixels = imageData.data;
+
 </script>
 <section class="dotted-word-section">
 </section>
