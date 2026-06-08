@@ -89,6 +89,8 @@
 	onMount(() => {
 		ctx = canvas.getContext('2d');
 
+		const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+		prefersReducedMotion = motionQuery.matches;
 </script>
 <section class="dotted-word-section">
 </section>
