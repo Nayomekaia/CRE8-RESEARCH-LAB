@@ -332,6 +332,18 @@
 		ctx.fill();
 	}
 
+	function drawLogoInStudiosO() {
+		if (!logoImage) return;
+
+		const width = canvas.width;
+		const layout = getTextLayout();
+		const responsive = getResponsiveSettings();
+
+		setTextFont(layout.fontSize);
+
+		ctx.textAlign = 'center';
+		ctx.textBaseline = 'middle';
+
 		const firstLine = lines[0];
 		const fullLineWidth = ctx.measureText(firstLine).width;
 		const lineStartX = width / 2 - fullLineWidth / 2;
@@ -352,6 +364,18 @@
 		);
 	}
 
+	function clearCanvas() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+	}
+
+	function drawBackground() {
+		ctx.fillStyle = settings.background;
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+	}
+
+	function handlePointerMove(event) {
+		if (prefersReducedMotion) return;
+
 		const rect = canvas.getBoundingClientRect();
 
 		mouse.x = event.clientX - rect.left;
@@ -365,6 +389,12 @@
 </script>
 
 <section class="dotted-word-section">
+	<canvas
+		bind:this={canvas}
+		on:pointermove={handlePointerMove}
+		on:pointerleave={handlePointerLeave}
+	></canvas>
 </section>
+
 <style>
 </style>
