@@ -164,6 +164,10 @@
 		);
 	}
 
+	function setTextFont(fontSize) {
+		ctx.font = `${settings.fontWeight} ${fontSize}px ${settings.fontFamily}`;
+	}
+
 </script>
 <section class="dotted-word-section">
 </section>
