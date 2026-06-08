@@ -116,6 +116,15 @@
 		};
 	});
 
+	function handleResize() {
+		resizeCanvas();
+		createTextParticles();
+
+		if (prefersReducedMotion) {
+			drawStaticFrame();
+		}
+	}
+
 </script>
 <section class="dotted-word-section">
 </section>
