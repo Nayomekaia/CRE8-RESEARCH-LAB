@@ -146,6 +146,24 @@
 		canvas.style.height = `${height}px`;
 	}
 
+	function getResponsiveSettings() {
+		const width = canvas.width;
+
+		return (
+			responsiveSteps.find((step) => width <= step.maxWidth) ?? {
+				dotSize: settings.dotSize,
+				gap: settings.gap,
+				mouseRadius: mouse.radius,
+				paddingX: settings.paddingX,
+				paddingY: settings.paddingY,
+				fontSize: 185,
+				logoOffsetY: -9,
+				logoScale: 0.2,
+				textOffsetY: -20
+			}
+		);
+	}
+
 </script>
 <section class="dotted-word-section">
 </section>
