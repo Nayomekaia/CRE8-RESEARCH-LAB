@@ -222,6 +222,29 @@
 		};
 	}
 
+	function createTextParticles() {
+		particles = [];
+
+		const width = canvas.width;
+		const height = canvas.height;
+		const responsive = getResponsiveSettings();
+
+		mouse.radius = responsive.mouseRadius;
+
+		clearCanvas();
+		drawBackground();
+
+		const layout = getTextLayout();
+
+		ctx.fillStyle = '#000';
+		ctx.textAlign = 'center';
+		ctx.textBaseline = 'middle';
+		setTextFont(layout.fontSize);
+
+		lines.forEach((line, index) => {
+			ctx.fillText(line, width / 2, layout.startY + index * layout.lineStep);
+		});
+
 </script>
 <section class="dotted-word-section">
 </section>
