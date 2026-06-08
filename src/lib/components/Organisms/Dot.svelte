@@ -204,6 +204,24 @@
 		return fontSize + (lines.length - 1) * lineStep;
 	}
 
+	function getTextLayout() {
+		const height = canvas.height;
+		const responsive = getResponsiveSettings();
+
+		const fontSize = getResponsiveFontSize();
+		const lineStep = fontSize * settings.lineHeight;
+		const blockHeight = getTextBlockHeight(fontSize);
+
+		const startY = (height - blockHeight) / 2 + fontSize / 2 + responsive.textOffsetY;
+
+		return {
+			fontSize,
+			lineStep,
+			blockHeight,
+			startY
+		};
+	}
+
 </script>
 <section class="dotted-word-section">
 </section>
