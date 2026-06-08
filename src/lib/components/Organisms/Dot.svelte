@@ -29,6 +29,12 @@
 		returnSpeed: 0.18
 	};
 
+	const mouse = {
+		x: null,
+		y: null,
+		radius: 120
+	};
+
 </script>
 <section class="dotted-word-section">
 </section>
