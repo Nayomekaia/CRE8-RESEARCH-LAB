@@ -91,6 +91,9 @@
 
 		const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 		prefersReducedMotion = motionQuery.matches;
+
+		logoImage = new Image();
+		logoImage.src = logoSvg;
 </script>
 <section class="dotted-word-section">
 </section>
