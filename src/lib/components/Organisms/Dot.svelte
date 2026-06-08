@@ -389,8 +389,11 @@
 </script>
 
 <section class="dotted-word-section">
+	<h1 class="visually-hidden">CRE8 STUDIOS Research Lab</h1>
+
 	<canvas
 		bind:this={canvas}
+		aria-hidden="true"
 		on:pointermove={handlePointerMove}
 		on:pointerleave={handlePointerLeave}
 	></canvas>
@@ -413,6 +416,18 @@
 		height: 100%;
 		display: block;
 		background: var(--color-background);
+	}
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
 	}
 
 	@media (min-width: 480px) {
