@@ -125,6 +125,17 @@
 		}
 	}
 
+	function handleMotionPreferenceChange(event) {
+		prefersReducedMotion = event.matches;
+		cancelAnimationFrame(animationFrame);
+
+		if (prefersReducedMotion) {
+			drawStaticFrame();
+		} else {
+			animate();
+		}
+	}
+
 </script>
 <section class="dotted-word-section">
 </section>
