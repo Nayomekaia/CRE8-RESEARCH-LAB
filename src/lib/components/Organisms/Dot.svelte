@@ -272,6 +272,23 @@
 			}
 		}
 
+		clearCanvas();
+	}
+
+	function animate() {
+		clearCanvas();
+		drawBackground();
+
+		for (const particle of particles) {
+			updateParticle(particle);
+			drawParticle(particle);
+		}
+
+		drawLogoInStudiosO();
+
+		animationFrame = requestAnimationFrame(animate);
+	}
+
 </script>
 <section class="dotted-word-section">
 </section>
