@@ -397,4 +397,22 @@
 </section>
 
 <style>
+	.dotted-word-section {
+		width: 100%;
+		height: calc(100svh - 105px);
+		background: var(--color-background);
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 0;
+	}
+
+	canvas {
+		width: 100%;
+		height: 100%;
+		display: block;
+		background: var(--color-background);
+	}
+
 </style>
