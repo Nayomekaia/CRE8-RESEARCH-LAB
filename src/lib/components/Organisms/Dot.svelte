@@ -106,6 +106,9 @@
 			}
 		};
 
+		window.addEventListener('resize', handleResize);
+		motionQuery.addEventListener('change', handleMotionPreferenceChange);
+
 </script>
 <section class="dotted-word-section">
 </section>
