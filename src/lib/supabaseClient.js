@@ -1,4 +1,7 @@
+import { PUBLIC_CRE8_SUPABASE_URL, PUBLIC_CRE8_SUPABASE_ANON_KEY } from '$env/static/public';
 import { createClient } from '@supabase/supabase-js';
-import { PUBLIC_SUPABAS_URL, PUBLIC_SUPABAS_ANON_KEY } from '$env/static/public';
 
-export const supabase = createClient(PUBLIC_SUPABAS_URL, PUBLIC_SUPABAS_ANON_KEY);
+export const supabase = createClient(
+	PUBLIC_CRE8_SUPABASE_URL,
+	PUBLIC_CRE8_SUPABASE_ANON_KEY
+);
