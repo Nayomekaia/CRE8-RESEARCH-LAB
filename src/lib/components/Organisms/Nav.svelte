@@ -97,7 +97,7 @@
 		max-width: none;
 	}
 
-	@media (min-width: 700px) {
+	@media (min-width: 768px) {
 		nav {
 			padding: 1.5rem 2rem;
 		}
@@ -111,7 +111,7 @@
 		}
 	}
 
-	@media (min-width: 1000px) {
+	@media (min-width: 1024px) {
 		nav {
 			padding: 1.75rem 3rem;
 		}
