@@ -131,13 +131,6 @@
 	}
 
 	.archive-page {
-		--archive-sidebar-width: 17rem;
-		--archive-content-padding-x: 1.25rem;
-		--archive-content-padding-bottom: 4rem;
-		--archive-grid-gap: 1.25rem;
-		--archive-border: 1px solid var(--color-border);
-		--archive-filter-padding-x: 1.8rem;
-
 		display: grid;
 		grid-template-columns: 1fr;
 		height: 100dvh;
