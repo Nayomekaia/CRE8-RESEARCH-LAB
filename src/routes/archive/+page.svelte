@@ -4,12 +4,13 @@
 	const selectedTag = $derived(data.selectedTag ?? '');
 	const projects = $derived(data.projects ?? []);
 	const tags = $derived(data.tags ?? []);
+	const projectColumns = $derived(createProjectColumns(projects));
 
-	const projectColumns = $derived([
-		projects.filter((_, index) => index % 3 === 0),
-		projects.filter((_, index) => index % 3 === 1),
-		projects.filter((_, index) => index % 3 === 2)
-	]);
+	function createProjectColumns(projects, columnAmount = 3) {
+		return Array.from({ length: columnAmount }, (_, columnIndex) =>
+			projects.filter((_, projectIndex) => projectIndex % columnAmount === columnIndex)
+		);
+	}
 
 	function getFilterUrl(tagSlug = '') {
 		return tagSlug ? `/archive?tag=${tagSlug}` : '/archive';
@@ -20,12 +21,12 @@
 			return '/archive';
 		}
 
-		const baseUrl = `/archive/${project.tags.slug}/${project.slug}`;
+		const projectUrl = `/archive/${project.tags.slug}/${project.slug}`;
 
-		return selectedTag ? `${baseUrl}?returnTag=${selectedTag}` : baseUrl;
+		return selectedTag ? `${projectUrl}?returnTag=${selectedTag}` : projectUrl;
 	}
 
-	function formatDate(date) {
+	function formatYear(date) {
 		return date ? new Date(date).getFullYear() : '';
 	}
 </script>
@@ -36,9 +37,10 @@
 			<p class="filter-label">Filter</p>
 			<h2 id="filter-title">Category</h2>
 
-			<nav class="filter-nav" aria-label="Project categories">
+			<nav class="filter-nav">
 				<a
 					href="/archive"
+					class="filter-link"
 					class:active={selectedTag === ''}
 					aria-current={selectedTag === '' ? 'page' : undefined}
 				>
@@ -48,6 +50,7 @@
 				{#each tags as tag}
 					<a
 						href={getFilterUrl(tag.slug)}
+						class="filter-link"
 						class:active={selectedTag === tag.slug}
 						aria-current={selectedTag === tag.slug ? 'page' : undefined}
 					>
@@ -62,7 +65,7 @@
 		<header class="archive-header">
 			<h1 id="archive-title" class="visually-hidden">Project archive</h1>
 
-			<p>
+			<p class="project-count">
 				{projects.length}
 				project{projects.length === 1 ? '' : 's'}
 			</p>
@@ -88,7 +91,7 @@
 										<article class="project-card">
 											<a href={getProjectUrl(project)} class="project-link">
 												{#if project.preview_image}
-													<figure>
+													<figure class="project-image">
 														<img src={project.preview_image} alt={project.title} />
 													</figure>
 												{/if}
@@ -100,7 +103,7 @@
 
 													{#if project.published_at}
 														<time datetime={project.published_at}>
-															{formatDate(project.published_at)}
+															{formatYear(project.published_at)}
 														</time>
 													{/if}
 												</footer>
@@ -123,8 +126,25 @@
 
 <style>
 	:global(body) {
-		background: #fffaf0;
-		color: #151515;
+		background: var(--color-background);
+		color: var(--color-text);
+	}
+
+	.archive-page {
+		--archive-sidebar-width: 17rem;
+		--archive-content-padding-x: 1.25rem;
+		--archive-content-padding-bottom: 4rem;
+		--archive-grid-gap: 1.25rem;
+		--archive-border: 1px solid var(--color-border);
+		--archive-filter-padding-x: 1.8rem;
+
+		display: grid;
+		grid-template-columns: 1fr;
+		height: 100dvh;
+		min-height: 0;
+		overflow: hidden;
+		background: var(--color-background);
+		border-top: var(--archive-border);
 	}
 
 	.visually-hidden {
@@ -139,22 +159,12 @@
 		border: 0;
 	}
 
-	.archive-page {
-		display: grid;
-		grid-template-columns: 1fr;
-		height: 100dvh;
-		min-height: 0;
-		overflow: hidden;
-		background: #fffaf0;
-		border-top: 1px solid rgba(0, 0, 0, 0.1);
-	}
-
 	.archive-sidebar {
 		z-index: 5;
-		background: #fffaf0;
 		padding: 1rem 0;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 		overflow: hidden;
+		background: var(--color-background);
+		border-bottom: var(--archive-border);
 	}
 
 	.filter-block {
@@ -175,20 +185,29 @@
 
 	.filter-block::before {
 		left: 0;
-		background: linear-gradient(to right, #fffaf0 20%, rgba(255, 250, 240, 0));
+		background: linear-gradient(to right, var(--filter-fade-start) 20%, var(--filter-fade-end));
 	}
 
 	.filter-block::after {
 		right: 0;
-		background: linear-gradient(to left, #fffaf0 20%, rgba(255, 250, 240, 0));
+		background: linear-gradient(to left, var(--filter-fade-start) 20%, var(--filter-fade-end));
+	}
+
+	.filter-label,
+	.project-count,
+	.sort,
+	.project-meta p,
+	.project-meta time,
+	.project-card h2 {
+		text-transform: uppercase;
+		letter-spacing: var(--letter-spacing-md);
 	}
 
 	.filter-label {
-		margin: 0 1.8rem 0.7rem;
-		text-transform: uppercase;
-		font-size: 0.6rem;
-		letter-spacing: 0.1em;
-		color: rgba(0, 0, 0, 0.45);
+		margin: 0 var(--archive-filter-padding-x) 0.7rem;
+		font-size: var(--font-size-sm);
+		letter-spacing: var(--letter-spacing-lg);
+		color: var(--color-text-subtle);
 	}
 
 	.archive-sidebar h2 {
@@ -202,17 +221,17 @@
 		gap: 0.5rem;
 		overflow-x: auto;
 		overflow-y: hidden;
-		padding: 0 1.8rem 0.25rem;
+		padding: 0 var(--archive-filter-padding-x) 0.25rem;
 		scrollbar-width: none;
-		-webkit-overflow-scrolling: touch;
 		scroll-snap-type: x proximity;
+		-webkit-overflow-scrolling: touch;
 	}
 
 	.filter-nav::-webkit-scrollbar {
 		display: none;
 	}
 
-	.filter-nav a {
+	.filter-link {
 		flex: 0 0 auto;
 		scroll-snap-align: start;
 		display: inline-flex;
@@ -220,30 +239,30 @@
 		justify-content: center;
 		min-height: 2rem;
 		padding: 0.45rem 0.85rem;
-		border: 1px solid rgba(0, 0, 0, 0.16);
-		border-radius: 999rem;
-		color: rgba(0, 0, 0, 0.55);
+		border: 1px solid var(--color-border-strong);
+		border-radius: var(--radius-pill);
+		color: var(--color-text-muted);
 		text-decoration: none;
 		text-transform: uppercase;
-		font-size: 0.62rem;
-		letter-spacing: 0.08em;
+		font-size: var(--font-size-sm);
+		letter-spacing: var(--letter-spacing-md);
 		line-height: 1;
 		white-space: nowrap;
 		transition:
-			color 0.2s ease,
-			background 0.2s ease,
-			border-color 0.2s ease;
+			color var(--transition-fast),
+			background var(--transition-fast),
+			border-color var(--transition-fast);
 	}
 
-	.filter-nav a::before {
+	.filter-link::before {
 		display: none;
 	}
 
-	.filter-nav a:hover,
-	.filter-nav a.active {
-		color: var(--background);
-		background: #151515;
-		border-color: #151515;
+	.filter-link:hover,
+	.filter-link.active {
+		color: var(--color-background);
+		background: var(--color-accent);
+		border-color: var(--color-accent);
 		text-decoration: none;
 	}
 
@@ -252,7 +271,7 @@
 		height: 100%;
 		min-height: 0;
 		overflow-y: auto;
-		padding: 1rem 1.25rem 4rem;
+		padding: 1rem var(--archive-content-padding-x) var(--archive-content-padding-bottom);
 		scroll-timeline-name: --archive-scroll;
 		scroll-timeline-axis: block;
 	}
@@ -265,19 +284,18 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
-		margin: -1rem -1.25rem 1.25rem;
-		padding: 1rem 1.25rem;
-		background: rgba(255, 250, 240, 0.92);
+		margin: -1rem calc(var(--archive-content-padding-x) * -1) 1.25rem;
+		padding: 1rem var(--archive-content-padding-x);
+		background: var(--surface-blur);
 		backdrop-filter: blur(0.8rem);
-		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+		border-bottom: var(--archive-border);
 	}
 
-	.archive-header p {
+	.project-count {
 		margin: 0;
-		text-transform: uppercase;
-		font-size: 0.7rem;
-		letter-spacing: 0.12em;
-		color: rgba(0, 0, 0, 0.45);
+		font-size: var(--font-size-base);
+		letter-spacing: var(--letter-spacing-xl);
+		color: var(--color-text-subtle);
 	}
 
 	.sort {
@@ -285,39 +303,35 @@
 		align-items: center;
 		gap: 0.5rem;
 		margin: 0;
-		text-transform: uppercase;
 		font-size: 0.65rem;
-		letter-spacing: 0.1em;
-		color: rgba(0, 0, 0, 0.45);
+		letter-spacing: var(--letter-spacing-lg);
+		color: var(--color-text-subtle);
 	}
 
 	.sort select {
 		border: 0;
 		background: transparent;
+		color: var(--color-text);
 		text-transform: uppercase;
-		font-size: 0.7rem;
-		letter-spacing: 0.08em;
-		color: #151515;
+		font-size: var(--font-size-base);
+		letter-spacing: var(--letter-spacing-md);
 		cursor: pointer;
 	}
 
 	.project-grid,
 	.project-list {
-		list-style: none;
 		margin: 0;
 		padding: 0;
+		list-style: none;
 	}
 
 	.project-grid {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 1.25rem;
+		gap: var(--archive-grid-gap);
 	}
 
-	.project-column {
-		display: contents;
-	}
-
+	.project-column,
 	.project-list {
 		display: contents;
 	}
@@ -335,19 +349,18 @@
 		text-decoration: none;
 	}
 
-	.project-card figure {
+	.project-image {
 		margin: 0;
 	}
 
 	.project-card img {
-		display: block;
 		width: 100%;
-		border-radius: 0.2rem;
+		border-radius: var(--radius-sm);
 		object-fit: cover;
-		background: #e8e0d2;
+		background: var(--color-surface);
 		transition:
-			transform 0.35s ease,
-			opacity 0.35s ease;
+			transform var(--transition-medium),
+			opacity var(--transition-medium);
 	}
 
 	.project-link:hover img {
@@ -366,25 +379,21 @@
 	.project-meta p,
 	.project-meta time {
 		margin: 0;
-		text-transform: uppercase;
-		font-size: 0.55rem;
-		letter-spacing: 0.08em;
-		color: rgba(0, 0, 0, 0.55);
+		font-size: var(--font-size-xs);
+		color: var(--color-text-muted);
 	}
 
 	.project-card h2 {
 		margin: 0.25rem 0 0;
-		text-transform: uppercase;
-		font-size: 0.7rem;
-		font-weight: 500;
-		letter-spacing: 0.08em;
+		font-size: var(--font-size-base);
+		font-weight: var(--fw-medium);
 		line-height: 1.2;
 	}
 
 	.empty-message {
 		margin: 3rem 0 0;
-		font-size: 0.85rem;
-		color: rgba(0, 0, 0, 0.5);
+		font-size: var(--font-size-lg);
+		color: var(--color-text-muted);
 	}
 
 	@keyframes card-in {
@@ -425,12 +434,7 @@
 			overflow: hidden;
 		}
 
-		.project-column {
-			display: flex;
-			flex-direction: column;
-			gap: 1.7rem;
-		}
-
+		.project-column,
 		.project-list {
 			display: flex;
 			flex-direction: column;
@@ -452,15 +456,17 @@
 
 	@media (min-width: 700px) {
 		.archive-page {
-			grid-template-columns: 17rem 1fr;
+			--archive-content-padding-x: 1.7rem;
+
+			grid-template-columns: var(--archive-sidebar-width) 1fr;
 		}
 
 		.archive-sidebar {
 			height: 100%;
 			padding: 4rem 2.8rem;
-			border-right: 1px solid var(--neutral-200);
-			border-bottom: 0;
 			overflow: visible;
+			border-right: var(--archive-border);
+			border-bottom: 0;
 		}
 
 		.filter-block {
@@ -475,20 +481,19 @@
 		.filter-label {
 			margin: 0 0 0.25rem;
 			font-size: 0.65rem;
-			letter-spacing: 0.08em;
+			letter-spacing: var(--letter-spacing-md);
 		}
 
 		.archive-sidebar h2 {
 			display: block;
 			margin: 0 0 1rem;
 			text-transform: uppercase;
-			font-size: 0.95rem;
-			font-weight: 500;
-			letter-spacing: 0.08em;
+			font-size: var(--font-size-heading-sm);
+			font-weight: var(--fw-medium);
+			letter-spacing: var(--letter-spacing-md);
 		}
 
 		.filter-nav {
-			display: flex;
 			flex-direction: column;
 			align-items: flex-start;
 			gap: 0.7rem;
@@ -497,20 +502,20 @@
 			scroll-snap-type: none;
 		}
 
-		.filter-nav a {
+		.filter-link {
 			min-height: 0;
 			padding: 0;
 			border: 0;
 			border-radius: 0;
-			background: transparent;
-			color: rgba(0, 0, 0, 0.55);
-			text-transform: none;
-			font-size: 0.75rem;
-			letter-spacing: 0.04em;
 			gap: 0.8rem;
+			background: transparent;
+			color: var(--color-text-muted);
+			text-transform: none;
+			font-size: var(--font-size-md);
+			letter-spacing: var(--letter-spacing-sm);
 		}
 
-		.filter-nav a::before {
+		.filter-link::before {
 			content: '';
 			display: block;
 			width: 0.3rem;
@@ -520,54 +525,43 @@
 			opacity: 0;
 			transform: scale(0.4);
 			transition:
-				opacity 0.2s ease,
-				transform 0.2s ease;
+				opacity var(--transition-fast),
+				transform var(--transition-fast);
 		}
 
-		.filter-nav a:hover,
-		.filter-nav a.active {
-			color: #151515;
+		.filter-link:hover,
+		.filter-link.active {
+			color: var(--color-text);
 			background: transparent;
 			text-decoration: underline;
 			text-underline-offset: 0.18rem;
 		}
 
-		.filter-nav a.active::before {
+		.filter-link.active::before {
 			opacity: 1;
 			transform: scale(1);
-		}
-
-		.archive-content {
-			padding: 1rem 1.7rem 5rem;
-		}
-
-		.archive-header {
-			margin: -1rem -1.7rem 1.25rem;
-			padding: 1rem 1.7rem;
 		}
 	}
 
 	@media (min-width: 1000px) {
 		.archive-page {
-			grid-template-columns: 18rem 1fr;
+			--archive-sidebar-width: 18rem;
+			--archive-content-padding-x: 1.7rem;
 		}
 
 		.archive-content {
 			padding-right: 2.4rem;
-			padding-left: 1.7rem;
 		}
 
 		.archive-header {
 			margin-right: -2.4rem;
-			margin-left: -1.7rem;
 			padding-right: 2.4rem;
-			padding-left: 1.7rem;
 		}
 	}
 
 	@media (min-width: 1400px) {
 		.archive-page {
-			grid-template-columns: 20rem 1fr;
+			--archive-sidebar-width: 20rem;
 		}
 	}
 

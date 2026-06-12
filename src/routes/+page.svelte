@@ -2,12 +2,12 @@
 	import Dot from '$lib/components/Organisms/Dot.svelte';
 </script>
 
-<main class="home-page">
+<main>
 	<Dot />
 </main>
 
 <style>
-	.home-page {
+	main {
 		flex: 1 1 auto;
 		min-height: 0;
 		display: flex;
@@ -18,14 +18,14 @@
 		box-sizing: border-box;
 	}
 
-	@media (min-width: 700px) {
-		.home-page {
+	@media (min-width: 768px) {
+		main {
 			padding: 2rem;
 		}
 	}
 
-	@media (min-width: 1000px) {
-		.home-page {
+	@media (min-width: 1024px) {
+		main {
 			padding: 2rem 3rem;
 		}
 	}

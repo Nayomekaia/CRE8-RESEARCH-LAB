@@ -65,8 +65,10 @@
 }
 
 :root {
+	/* Font */
 	--font-primary: 'ClashDisplay', sans-serif;
 
+	/* Font weights */
 	--fw-extra-light: 200;
 	--fw-light: 300;
 	--fw-regular: 400;
@@ -74,30 +76,37 @@
 	--fw-semibold: 600;
 	--fw-bold: 700;
 
-		/* Base neutrals */
-        --color-neutral-100: #fffaf0;
-        --color-neutral-200: #e8e0d2;
-        --color-neutral-700: rgba(0, 0, 0, 0.55);
-        --color-neutral-800: rgba(0, 0, 0, 0.78);
-        --color-neutral-900: #151515;
-    
-        /* Surface */
-        --color-background: var(--color-neutral-100);
-        --color-surface: var(--color-neutral-200);
-    
-        /* Text */
-        --color-text: var(--color-neutral-900);
-        --color-text-body: var(--color-neutral-800);
-        --color-text-muted: var(--color-neutral-700);
-        --color-text-subtle: rgba(0, 0, 0, 0.45);
-    
-        /* Border */
-        --color-border: rgba(0, 0, 0, 0.1);
-        --color-border-strong: rgba(0, 0, 0, 0.16);
-    
-        /* Accent */
-        --color-accent: var(--color-neutral-900);
+	/* Base neutrals */
+	--color-neutral-100: #fffaf0;
+	--color-neutral-200: #e8e0d2;
+	--color-neutral-700: rgba(0, 0, 0, 0.55);
+	--color-neutral-800: rgba(0, 0, 0, 0.78);
+	--color-neutral-900: #151515;
 
+	/* Surface */
+	--color-background: var(--color-neutral-100);
+	--color-surface: var(--color-neutral-200);
+
+	/* Text */
+	--color-text: var(--color-neutral-900);
+	--color-text-body: var(--color-neutral-800);
+	--color-text-muted: var(--color-neutral-700);
+	--color-text-subtle: rgba(0, 0, 0, 0.45);
+
+	/* Border */
+	--color-border: rgba(0, 0, 0, 0.1);
+	--color-border-strong: rgba(0, 0, 0, 0.16);
+
+	/* Accent */
+	--color-accent: var(--color-neutral-900);
+	--color-highlight: var(--color-neutral-900);
+
+	/* Effects */
+	--surface-blur: rgba(255, 250, 240, 0.92);
+	--filter-fade-start: #fffaf0;
+	--filter-fade-end: rgba(255, 250, 240, 0);
+
+	/* Headings */
 	--h1-size: clamp(1.875rem, 1.602rem + 1.1494vw, 2.5rem);
 	--h1-line-height: 1.2;
 	--h1-max-width: 60ch;
@@ -118,6 +127,7 @@
 	--h5-line-height: 1.4;
 	--h5-max-width: 70ch;
 
+	/* Paragraphs */
 	--p-l-size: 1.1875rem;
 	--p-l-line-height: 1.3;
 	--p-l-max-width: 70ch;
@@ -132,6 +142,7 @@
 
 	--p-xs-size: 0.875rem;
 
+	/* Small UI typography */
 	--font-size-xs: 0.55rem;
 	--font-size-sm: 0.62rem;
 	--font-size-base: 0.7rem;
@@ -139,20 +150,25 @@
 	--font-size-lg: 0.85rem;
 	--font-size-heading-sm: 0.95rem;
 
+	/* Letter spacing */
 	--letter-spacing-sm: 0.04em;
 	--letter-spacing-md: 0.08em;
 	--letter-spacing-lg: 0.1em;
 	--letter-spacing-xl: 0.12em;
 
+	/* Radius */
 	--radius-sm: 0.2rem;
 	--radius-md: 0.25rem;
 	--radius-pill: 999rem;
 
+	/* Transitions */
 	--transition-fast: 0.2s ease;
 	--transition-medium: 0.35s ease;
 }
 
-* {
+*,
+*::before,
+*::after {
 	box-sizing: border-box;
 }
 
