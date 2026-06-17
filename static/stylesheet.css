@@ -76,14 +76,14 @@
 	--fw-semibold: 600;
 	--fw-bold: 700;
 
-	/* Base neutrals */
+	/* neutral color */
 	--color-neutral-100: #fffaf0;
 	--color-neutral-200: #e8e0d2;
 	--color-neutral-700: rgba(0, 0, 0, 0.55);
 	--color-neutral-800: rgba(0, 0, 0, 0.78);
 	--color-neutral-900: #151515;
 
-	/* Surface */
+	/* base colors */
 	--color-background: var(--color-neutral-100);
 	--color-surface: var(--color-neutral-200);
 
@@ -142,7 +142,7 @@
 
 	--p-xs-size: 0.875rem;
 
-	/* Small UI typography */
+	/* Small typography */
 	--font-size-xs: 0.55rem;
 	--font-size-sm: 0.62rem;
 	--font-size-base: 0.7rem;
